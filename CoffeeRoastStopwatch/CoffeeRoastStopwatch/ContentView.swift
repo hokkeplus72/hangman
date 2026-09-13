@@ -6,10 +6,14 @@ struct ContentView: View {
     @State private var showResetConfirmation = false
 
     private let splitDefinitions: [(label: String, color: Color)] = [
-        ("1ハゼ", .orange),
-        ("2ハゼ", .red),
-        ("焙煎終了", .brown)
+        ("ドライフェーズ終了", Color(red: 0.86, green: 0.70, blue: 0.32)),
+        ("1ハゼ開始", Color(red: 0.90, green: 0.55, blue: 0.15)),
+        ("1ハゼ終了", Color(red: 0.80, green: 0.40, blue: 0.10)),
+        ("2ハゼ開始", Color(red: 0.78, green: 0.25, blue: 0.16)),
+        ("2ハゼ終了", Color(red: 0.58, green: 0.15, blue: 0.12)),
+        ("焙煎終了", Color(red: 0.36, green: 0.22, blue: 0.14))
     ]
+    private let splitColumns = [GridItem(.flexible()), GridItem(.flexible())]
 
     var body: some View {
         NavigationStack {
@@ -70,13 +74,15 @@ struct ContentView: View {
     }
 
     private var splitButtons: some View {
-        VStack(spacing: 12) {
+        LazyVGrid(columns: splitColumns, spacing: 10) {
             ForEach(splitDefinitions, id: \.label) { def in
                 Button(action: { recordSplit(def.label) }) {
                     Text(def.label)
-                        .font(.system(size: 24, weight: .bold))
+                        .font(.system(size: 18, weight: .bold))
+                        .minimumScaleFactor(0.6)
+                        .lineLimit(1)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 60)
+                        .frame(height: 56)
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(def.color)
