@@ -1,8 +1,15 @@
 import Foundation
 
-struct SplitRecord: Identifiable, Equatable {
-    let id = UUID()
+struct SplitRecord: Identifiable, Equatable, Codable {
+    let id: UUID
     let label: String
     let elapsedTime: TimeInterval
     let recordedAt: Date
+
+    init(id: UUID = UUID(), label: String, elapsedTime: TimeInterval, recordedAt: Date) {
+        self.id = id
+        self.label = label
+        self.elapsedTime = elapsedTime
+        self.recordedAt = recordedAt
+    }
 }

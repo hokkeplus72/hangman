@@ -9,15 +9,16 @@ final class RoastTimerViewModel: ObservableObject {
     private var startDate: Date?
     private var accumulatedTime: TimeInterval = 0
 
+    init() {
+        restore()
+    }
+
     func start() {
         guard !isRunning else { return }
         startDate = Date()
         isRunning = true
-        let timer = Timer(timeInterval: 0.1, repeats: true) { [weak self] _ in
-            self?.tick()
-        }
-        RunLoop.current.add(timer, forMode: .common)
-        self.timer = timer
+        scheduleTimer()
+        persist()
     }
 
     func pause() {
@@ -30,6 +31,7 @@ final class RoastTimerViewModel: ObservableObject {
         startDate = nil
         isRunning = false
         elapsedTime = accumulatedTime
+        persist()
     }
 
     func reset() {
@@ -40,19 +42,54 @@ final class RoastTimerViewModel: ObservableObject {
         elapsedTime = 0
         isRunning = false
         splits.removeAll()
+        RoastStateStore.clear()
     }
 
     func recordSplit(label: String) {
         let record = SplitRecord(label: label, elapsedTime: elapsedTime, recordedAt: Date())
         splits.append(record)
+        persist()
     }
 
     func deleteSplit(_ record: SplitRecord) {
         splits.removeAll { $0.id == record.id }
+        persist()
+    }
+
+    private func scheduleTimer() {
+        let timer = Timer(timeInterval: 0.1, repeats: true) { [weak self] _ in
+            self?.tick()
+        }
+        RunLoop.current.add(timer, forMode: .common)
+        self.timer = timer
     }
 
     private func tick() {
         guard let startDate else { return }
         elapsedTime = accumulatedTime + Date().timeIntervalSince(startDate)
+    }
+
+    private func persist() {
+        let state = PersistedRoastState(
+            accumulatedTime: accumulatedTime,
+            isRunning: isRunning,
+            startDate: startDate,
+            splits: splits
+        )
+        RoastStateStore.save(state)
+    }
+
+    private func restore() {
+        guard let state = RoastStateStore.load() else { return }
+        accumulatedTime = state.accumulatedTime
+        splits = state.splits
+        if state.isRunning, let restoredStartDate = state.startDate {
+            startDate = restoredStartDate
+            isRunning = true
+            elapsedTime = accumulatedTime + Date().timeIntervalSince(restoredStartDate)
+            scheduleTimer()
+        } else {
+            elapsedTime = accumulatedTime
+        }
     }
 }
