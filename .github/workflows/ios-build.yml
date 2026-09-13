@@ -1,0 +1,30 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "CoffeeRoastStopwatch/**"
+      - ".github/workflows/ios-build.yml"
+  pull_request:
+    paths:
+      - "CoffeeRoastStopwatch/**"
+      - ".github/workflows/ios-build.yml"
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show selected Xcode
+        run: xcodebuild -version
+
+      - name: Build for iOS Simulator
+        run: |
+          xcodebuild build \
+            -project CoffeeRoastStopwatch/CoffeeRoastStopwatch.xcodeproj \
+            -target CoffeeRoastStopwatch \
+            -sdk iphonesimulator \
+            -configuration Debug \
+            CODE_SIGNING_ALLOWED=NO
