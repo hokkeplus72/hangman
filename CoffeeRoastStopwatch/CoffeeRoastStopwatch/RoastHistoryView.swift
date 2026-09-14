@@ -43,9 +43,6 @@ struct RoastHistoryView: View {
             }
         }
         .navigationTitle("焙煎履歴")
-        .navigationDestination(for: RoastSession.self) { session in
-            RoastSessionDetailView(session: session)
-        }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
