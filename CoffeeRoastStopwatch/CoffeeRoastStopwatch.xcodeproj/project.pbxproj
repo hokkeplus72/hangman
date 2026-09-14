@@ -22,6 +22,7 @@
 		1BB000000000000000000D /* CSVDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA000000000000000000E /* CSVDocument.swift */; };
 		1BB000000000000000000E /* RoastSessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA000000000000000000F /* RoastSessionDetailView.swift */; };
 		1BB000000000000000000F /* RoastHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA0000000000000000010 /* RoastHistoryView.swift */; };
+		1BB0000000000000000010 /* ContentRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA0000000000000000011 /* ContentRoute.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		1AA000000000000000000E /* CSVDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVDocument.swift; sourceTree = "<group>"; };
 		1AA000000000000000000F /* RoastSessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoastSessionDetailView.swift; sourceTree = "<group>"; };
 		1AA0000000000000000010 /* RoastHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoastHistoryView.swift; sourceTree = "<group>"; };
+		1AA0000000000000000011 /* ContentRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentRoute.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				1AA000000000000000000E /* CSVDocument.swift */,
 				1AA000000000000000000F /* RoastSessionDetailView.swift */,
 				1AA0000000000000000010 /* RoastHistoryView.swift */,
+				1AA0000000000000000011 /* ContentRoute.swift */,
 				1AA0000000000000000006 /* Assets.xcassets */,
 				1AA0000000000000000009 /* LaunchScreen.storyboard */,
 				1CC0000000000000000004 /* Preview Content */,
@@ -183,6 +186,7 @@
 				1BB000000000000000000D /* CSVDocument.swift in Sources */,
 				1BB000000000000000000E /* RoastSessionDetailView.swift in Sources */,
 				1BB000000000000000000F /* RoastHistoryView.swift in Sources */,
+				1BB0000000000000000010 /* ContentRoute.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

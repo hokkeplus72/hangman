@@ -29,11 +29,15 @@ struct ContentView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink {
-                        RoastHistoryView()
-                    } label: {
+                    NavigationLink(value: ContentRoute.history) {
                         Label("履歴", systemImage: "clock.arrow.circlepath")
                     }
+                }
+            }
+            .navigationDestination(for: ContentRoute.self) { route in
+                switch route {
+                case .history:
+                    RoastHistoryView()
                 }
             }
             .navigationDestination(for: RoastSession.self) { session in
