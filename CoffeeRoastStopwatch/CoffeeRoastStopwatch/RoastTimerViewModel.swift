@@ -5,13 +5,20 @@ final class RoastTimerViewModel: ObservableObject {
     @Published private(set) var isRunning: Bool = false
     @Published private(set) var splits: [SplitRecord] = []
 
-    private var timer: Timer?
     private var startDate: Date?
     private var accumulatedTime: TimeInterval = 0
     private var sessionStartedAt: Date?
 
     init() {
         restore()
+    }
+
+    /// Elapsed time computed live from the stored start date, independent of any
+    /// @Published property. Intended for a view (e.g. TimelineView) to poll on its
+    /// own schedule without forcing this object's owner to re-render every tick.
+    func currentElapsed() -> TimeInterval {
+        guard let startDate else { return accumulatedTime }
+        return accumulatedTime + Date().timeIntervalSince(startDate)
     }
 
     func start() {
@@ -21,14 +28,11 @@ final class RoastTimerViewModel: ObservableObject {
         }
         startDate = Date()
         isRunning = true
-        scheduleTimer()
         persist()
     }
 
     func pause() {
         guard isRunning else { return }
-        timer?.invalidate()
-        timer = nil
         if let startDate {
             accumulatedTime += Date().timeIntervalSince(startDate)
         }
@@ -39,12 +43,11 @@ final class RoastTimerViewModel: ObservableObject {
     }
 
     func reset() {
-        if let sessionStartedAt, elapsedTime > 0 || !splits.isEmpty {
+        let finalElapsed = currentElapsed()
+        if let sessionStartedAt, finalElapsed > 0 || !splits.isEmpty {
             let session = RoastSession(startedAt: sessionStartedAt, finishedAt: Date(), splits: splits)
             RoastHistoryStore.append(session)
         }
-        timer?.invalidate()
-        timer = nil
         startDate = nil
         accumulatedTime = 0
         elapsedTime = 0
@@ -55,7 +58,7 @@ final class RoastTimerViewModel: ObservableObject {
     }
 
     func recordSplit(label: String) {
-        let record = SplitRecord(label: label, elapsedTime: elapsedTime, recordedAt: Date())
+        let record = SplitRecord(label: label, elapsedTime: currentElapsed(), recordedAt: Date())
         splits.append(record)
         persist()
     }
@@ -63,19 +66,6 @@ final class RoastTimerViewModel: ObservableObject {
     func deleteSplit(_ record: SplitRecord) {
         splits.removeAll { $0.id == record.id }
         persist()
-    }
-
-    private func scheduleTimer() {
-        let timer = Timer(timeInterval: 0.1, repeats: true) { [weak self] _ in
-            self?.tick()
-        }
-        RunLoop.current.add(timer, forMode: .common)
-        self.timer = timer
-    }
-
-    private func tick() {
-        guard let startDate else { return }
-        elapsedTime = accumulatedTime + Date().timeIntervalSince(startDate)
     }
 
     private func persist() {
@@ -97,8 +87,6 @@ final class RoastTimerViewModel: ObservableObject {
         if state.isRunning, let restoredStartDate = state.startDate {
             startDate = restoredStartDate
             isRunning = true
-            elapsedTime = accumulatedTime + Date().timeIntervalSince(restoredStartDate)
-            scheduleTimer()
         } else {
             elapsedTime = accumulatedTime
         }
