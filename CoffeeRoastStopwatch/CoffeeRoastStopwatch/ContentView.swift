@@ -27,6 +27,15 @@ struct ContentView: View {
             .padding()
             .navigationTitle("焙煎タイマー")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    NavigationLink {
+                        RoastHistoryView()
+                    } label: {
+                        Label("履歴", systemImage: "clock.arrow.circlepath")
+                    }
+                }
+            }
         }
     }
 

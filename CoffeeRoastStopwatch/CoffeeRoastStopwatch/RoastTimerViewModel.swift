@@ -8,6 +8,7 @@ final class RoastTimerViewModel: ObservableObject {
     private var timer: Timer?
     private var startDate: Date?
     private var accumulatedTime: TimeInterval = 0
+    private var sessionStartedAt: Date?
 
     init() {
         restore()
@@ -15,6 +16,9 @@ final class RoastTimerViewModel: ObservableObject {
 
     func start() {
         guard !isRunning else { return }
+        if sessionStartedAt == nil {
+            sessionStartedAt = Date()
+        }
         startDate = Date()
         isRunning = true
         scheduleTimer()
@@ -35,6 +39,10 @@ final class RoastTimerViewModel: ObservableObject {
     }
 
     func reset() {
+        if let sessionStartedAt, elapsedTime > 0 || !splits.isEmpty {
+            let session = RoastSession(startedAt: sessionStartedAt, finishedAt: Date(), splits: splits)
+            RoastHistoryStore.append(session)
+        }
         timer?.invalidate()
         timer = nil
         startDate = nil
@@ -42,6 +50,7 @@ final class RoastTimerViewModel: ObservableObject {
         elapsedTime = 0
         isRunning = false
         splits.removeAll()
+        sessionStartedAt = nil
         RoastStateStore.clear()
     }
 
@@ -74,7 +83,8 @@ final class RoastTimerViewModel: ObservableObject {
             accumulatedTime: accumulatedTime,
             isRunning: isRunning,
             startDate: startDate,
-            splits: splits
+            splits: splits,
+            sessionStartedAt: sessionStartedAt
         )
         RoastStateStore.save(state)
     }
@@ -83,6 +93,7 @@ final class RoastTimerViewModel: ObservableObject {
         guard let state = RoastStateStore.load() else { return }
         accumulatedTime = state.accumulatedTime
         splits = state.splits
+        sessionStartedAt = state.sessionStartedAt
         if state.isRunning, let restoredStartDate = state.startDate {
             startDate = restoredStartDate
             isRunning = true
