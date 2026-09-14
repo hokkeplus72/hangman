@@ -36,6 +36,9 @@ struct ContentView: View {
                     }
                 }
             }
+            .navigationDestination(for: RoastSession.self) { session in
+                RoastSessionDetailView(session: session)
+            }
         }
     }
 
