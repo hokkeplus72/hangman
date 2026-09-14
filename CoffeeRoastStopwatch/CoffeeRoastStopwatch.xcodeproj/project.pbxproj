@@ -16,6 +16,12 @@
 		1BB0000000000000000007 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA0000000000000000007 /* Preview Assets.xcassets */; };
 		1BB0000000000000000008 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AA0000000000000000009 /* LaunchScreen.storyboard */; };
 		1BB0000000000000000009 /* RoastStateStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA000000000000000000A /* RoastStateStore.swift */; };
+		1BB000000000000000000A /* RoastSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA000000000000000000B /* RoastSession.swift */; };
+		1BB000000000000000000B /* RoastHistoryStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA000000000000000000C /* RoastHistoryStore.swift */; };
+		1BB000000000000000000C /* CSVExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA000000000000000000D /* CSVExporter.swift */; };
+		1BB000000000000000000D /* CSVDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA000000000000000000E /* CSVDocument.swift */; };
+		1BB000000000000000000E /* RoastSessionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA000000000000000000F /* RoastSessionDetailView.swift */; };
+		1BB000000000000000000F /* RoastHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA0000000000000000010 /* RoastHistoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +35,12 @@
 		1AA0000000000000000008 /* CoffeeRoastStopwatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeRoastStopwatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA0000000000000000009 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1AA000000000000000000A /* RoastStateStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoastStateStore.swift; sourceTree = "<group>"; };
+		1AA000000000000000000B /* RoastSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoastSession.swift; sourceTree = "<group>"; };
+		1AA000000000000000000C /* RoastHistoryStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoastHistoryStore.swift; sourceTree = "<group>"; };
+		1AA000000000000000000D /* CSVExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVExporter.swift; sourceTree = "<group>"; };
+		1AA000000000000000000E /* CSVDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVDocument.swift; sourceTree = "<group>"; };
+		1AA000000000000000000F /* RoastSessionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoastSessionDetailView.swift; sourceTree = "<group>"; };
+		1AA0000000000000000010 /* RoastHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoastHistoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +71,12 @@
 				1AA0000000000000000004 /* SplitRecord.swift */,
 				1AA0000000000000000005 /* TimeFormatting.swift */,
 				1AA000000000000000000A /* RoastStateStore.swift */,
+				1AA000000000000000000B /* RoastSession.swift */,
+				1AA000000000000000000C /* RoastHistoryStore.swift */,
+				1AA000000000000000000D /* CSVExporter.swift */,
+				1AA000000000000000000E /* CSVDocument.swift */,
+				1AA000000000000000000F /* RoastSessionDetailView.swift */,
+				1AA0000000000000000010 /* RoastHistoryView.swift */,
 				1AA0000000000000000006 /* Assets.xcassets */,
 				1AA0000000000000000009 /* LaunchScreen.storyboard */,
 				1CC0000000000000000004 /* Preview Content */,
@@ -159,6 +177,12 @@
 				1BB0000000000000000004 /* SplitRecord.swift in Sources */,
 				1BB0000000000000000005 /* TimeFormatting.swift in Sources */,
 				1BB0000000000000000009 /* RoastStateStore.swift in Sources */,
+				1BB000000000000000000A /* RoastSession.swift in Sources */,
+				1BB000000000000000000B /* RoastHistoryStore.swift in Sources */,
+				1BB000000000000000000C /* CSVExporter.swift in Sources */,
+				1BB000000000000000000D /* CSVDocument.swift in Sources */,
+				1BB000000000000000000E /* RoastSessionDetailView.swift in Sources */,
+				1BB000000000000000000F /* RoastHistoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

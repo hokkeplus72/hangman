@@ -5,6 +5,7 @@ struct PersistedRoastState: Codable {
     var isRunning: Bool
     var startDate: Date?
     var splits: [SplitRecord]
+    var sessionStartedAt: Date?
 }
 
 enum RoastStateStore {

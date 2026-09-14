@@ -1,6 +1,6 @@
 import Foundation
 
-struct SplitRecord: Identifiable, Equatable, Codable {
+struct SplitRecord: Identifiable, Codable, Hashable {
     let id: UUID
     let label: String
     let elapsedTime: TimeInterval
