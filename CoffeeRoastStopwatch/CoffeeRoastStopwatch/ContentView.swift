@@ -43,18 +43,21 @@ struct ContentView: View {
     }
 
     private var timerDisplay: some View {
-        HStack(alignment: .lastTextBaseline, spacing: 2) {
-            Text(TimeFormatting.mainText(viewModel.elapsedTime))
-                .font(.system(size: 84, weight: .bold, design: .monospaced))
-                .minimumScaleFactor(0.4)
-                .lineLimit(1)
-            Text(TimeFormatting.tenthsText(viewModel.elapsedTime))
-                .font(.system(size: 30, weight: .semibold, design: .monospaced))
-                .foregroundStyle(.secondary)
+        TimelineView(.periodic(from: .now, by: 0.1)) { _ in
+            let elapsed = viewModel.isRunning ? viewModel.currentElapsed() : viewModel.elapsedTime
+            HStack(alignment: .lastTextBaseline, spacing: 2) {
+                Text(TimeFormatting.mainText(elapsed))
+                    .font(.system(size: 84, weight: .bold, design: .monospaced))
+                    .minimumScaleFactor(0.4)
+                    .lineLimit(1)
+                Text(TimeFormatting.tenthsText(elapsed))
+                    .font(.system(size: 30, weight: .semibold, design: .monospaced))
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.top, 8)
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("経過時間 \(TimeFormatting.mainText(elapsed))")
         }
-        .padding(.top, 8)
-        .accessibilityElement(children: .combine)
-        .accessibilityLabel("経過時間 \(TimeFormatting.mainText(viewModel.elapsedTime))")
     }
 
     private var controlButtons: some View {
